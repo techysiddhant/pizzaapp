@@ -4,9 +4,10 @@ const ejs = require('ejs');
 const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
 const PORT = process.env.PORT || 3000;
-
+//assests
+app.use(express.static('public'));
 //create a first route
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
     // console.log(__dirname, '/resources/views');
     res.render('home')
 })
@@ -21,6 +22,6 @@ app.set('view engine', 'ejs');
 
 
 // create a server
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     console.log(`Listening on Port ${PORT}`);
 })
