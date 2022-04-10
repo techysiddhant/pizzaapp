@@ -1,29 +1,36 @@
 {
-  "name": "ThePizzaApp",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "dev": "nodemon server.js",
-    "serve": "node server.js",
-    "development": "mix",
-    "watch": "mix watch",
-    "watch-poll": "mix watch -- --watch-options-poll=1000",
-    "hot": "mix watch --hot",
-    "prod": "npm run production",
-    "production": "mix --production"
-  },
-  "dependencies": {
-    "cross-env": "^7.0.3",
-    "ejs": "^3.1.6",
-    "express": "^4.17.3",
-    "express-ejs-layouts": "^2.5.1"
-  },
-  "devDependencies": {
-    "laravel-mix": "^6.0.43",
-    "nodemon": "^2.0.15",
-    "resolve-url-loader": "5.0.0",
-    "sass": "^1.49.9",
-    "sass-loader": "12.1.0"
-  }
+    "name": "ThePizzaApp",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "nodemon server.js",
+        "serve": "node server.js",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "dependencies": {
+        "axios": "^0.26.1",
+        "connect-mongo": "^4.6.0",
+        "cross-env": "^7.0.3",
+        "dotenv": "^16.0.0",
+        "ejs": "^3.1.6",
+        "express": "^4.17.3",
+        "express-ejs-layouts": "^2.5.1",
+        "express-flash": "^0.0.2",
+        "express-session": "^1.17.2",
+        "mongoose": "^6.2.10",
+        "noty": "^3.2.0-beta-deprecated"
+    },
+    "devDependencies": {
+        "laravel-mix": "^6.0.43",
+        "nodemon": "^2.0.15",
+        "resolve-url-loader": "5.0.0",
+        "sass": "^1.49.9",
+        "sass-loader": "12.1.0"
+    }
 }
