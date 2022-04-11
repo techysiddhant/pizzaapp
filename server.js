@@ -9,7 +9,9 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("express-flash");
 const MongoDbStore = require("connect-mongo")
-    // database connection
+const passport = require('passport');
+
+// database connection
 const url = "mongodb://localhost:27017/pizza";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
@@ -20,6 +22,7 @@ connection
     .on("error", (error) => {
         console.log("Connection failed...");
     });
+
 // session-store
 // let mongoStore = new MongoDbStore({
 //     mongooseConnection: connection,
@@ -39,14 +42,22 @@ app.use(
     })
 );
 
+//always after session config
+// Passport Config
+const passportInit = require('./app/config/passport');
+passportInit(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 //assests
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Global Middleware
 app.use((req, res, next) => {
         res.locals.session = req.session;
+        res.locals.user = req.user;
         next();
     })
     // set tamplate engine
