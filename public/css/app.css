@@ -348,6 +348,10 @@ section.login a:hover {
   padding-left: 8px !important;
 }
 
+a.link {
+  color: #FE5F1E;
+}
+
 @media (min-width: 1280px) {
   .container {
     max-width: 1024px;

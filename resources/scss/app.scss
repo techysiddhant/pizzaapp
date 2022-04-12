@@ -74,6 +74,10 @@ section.login {
     padding-left: 8px!important;
 }
 
+a.link {
+    color: $primary;
+}
+
 @media (min-width: 1280px) {
     .container {
         max-width: 1024px;
