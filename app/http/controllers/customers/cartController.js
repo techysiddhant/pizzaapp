@@ -4,6 +4,26 @@ function cartController() {
 
             res.render("customers/cart");
         },
+        deleteCart(req, res) {
+            let cart = req.session.cart;
+            if (cart.totalQty > 0) {
+                cart.totalQty = cart.totalQty - 1;
+                cart.totalPrice = cart.totalPrice - req.body.price;
+
+                if (cart.items[req.body._id].qty === 1) {
+                    delete cart.items[req.body._id];
+                } else {
+                    cart.items[req.body._id].qty = cart.items[req.body._id].qty - 1;
+                }
+                if (cart.totalQty === 0) {
+                    delete req.session.cart;
+                }
+            }
+
+            let totalQty = cart ? cart.totalQty : 0;
+
+            return res.json({ totalQty: totalQty, cartItems: cart.items });
+        },
         update(req, res) {
             // example demo cart structure
             // let cart={
@@ -39,6 +59,13 @@ function cartController() {
                 cart.totalQty = cart.totalQty + 1;
                 cart.totalPrice = cart.totalPrice + req.body.price;
             }
+            // if (req.body.dataset.deleteBtn === 'deleteAll') {
+            //     req.session.cart = {
+            //         items: {},
+            //         totalQty: 0,
+            //         totalPrice: 0
+            //     }
+            // }
 
             return res.json({ totalQty: req.session.cart.totalQty });
         }

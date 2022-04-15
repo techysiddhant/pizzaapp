@@ -15,6 +15,8 @@ function initRoutes(app) {
     // cart route
     app.get("/cart", cartController().index);
     app.post('/update-cart', cartController().update);
+    //for delete cart value
+    app.post("/orders-delete", auth, cartController().deleteCart);
     //login route
 
     app.get("/login", guest, authController().login);
@@ -27,6 +29,7 @@ function initRoutes(app) {
     app.post("/logout", authController().logout);
     // customer routes
     app.post("/orders", auth, orderController().store);
+
     app.get("/customer/orders", auth, orderController().index);
     app.get("/customer/orders/:id", auth, orderController().show);
 

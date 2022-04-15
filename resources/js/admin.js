@@ -16,7 +16,7 @@ export function initAdmin(socket) {
         orders = res.data
         markup = generateMarkup(orders);
         orderTableBody.innerHTML = markup;
-        console.log(markup)
+        // console.log(markup)
     }).catch(err => {
         console.log(err);
     })

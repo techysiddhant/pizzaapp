@@ -5,6 +5,7 @@ body {
     font-family: 'Lato', sans-serif;
     -webkit-font-smoothing: antialiased;
     color: $dark;
+    overflow-x: hidden;
 }
 
 nav li:last-child a {
@@ -29,7 +30,8 @@ section.hero {
     background: $secondary;
 }
 
-.add-to-cart {
+.add-to-cart,
+.remove-to-cart {
     border: 2px solid $primary;
     color: $primary;
     transition: $smooth;
@@ -202,5 +204,22 @@ section.status {
 @media (min-width: 1280px) {
     .container {
         max-width: 1024px;
+    }
+}
+
+@media(max-width:1060px) {
+    .container {
+        max-width: 90%;
+    }
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+@media(max-width: 768px) {
+    .status-box ul li span::before {
+        font-size: 34px;
     }
 }

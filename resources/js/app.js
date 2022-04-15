@@ -5,31 +5,79 @@ import moment from 'moment';
 
 let addToCart = document.querySelectorAll('.add-to-cart');
 let cartCounter = document.querySelector('#cartCounter');
+// let deleteCart = document.querySelector('#deleteCartBtn');
+// let addToCart = document.querySelectorAll('.add-to-cart')
+let removeToCart = document.querySelectorAll(".remove-to-cart");
 
-function updateCart(pizza) {
-    axios.post('/update-cart', pizza).then(res => {
-        // console.log(res);
-        cartCounter.innerText = res.data.totalQty;
+// function updateCart(pizza) {
+//     axios.post('/update-cart', pizza).then(res => {
+//         // console.log(res);
+//         cartCounter.innerText = res.data.totalQty;
+//         new Noty({
+//             type: 'success',
+//             timeout: 1000,
+//             text: "Item added to the Cart",
+//             // progressBar: false
+//         }).show();
+//     }).catch(err => {
+//         new Noty({
+//             type: 'error',
+//             timeout: 2000,
+//             text: "Somwthing went Wrong",
+//             progressBar: false
+//         }).show();
+//     })
+// }
+// addToCart.forEach((btn) => {
+//     btn.addEventListener('click', (e) => {
+//         let pizza = JSON.parse(btn.dataset.pizza);
+//         updateCart(pizza);
+//         // console.log(pizza);
+//     })
+// })
+// deleteCart.forEach((btndel) => {
+//     btndel.addEventListener('click', (e) => {
+//         let pizza = JSON.parse(btn.dataset.pizza);
+//         deleteCartPizza(pizza);
+//     })
+// })
+
+function updateCart(pizza, url, msg) {
+    axios.post(url, pizza).then(res => {
+        cartCounter.innerText = res.data.totalQty
         new Noty({
             type: 'success',
             timeout: 1000,
-            text: "Item added to the Cart",
-            // progressBar: false
+            text: msg,
+            progressBar: false,
         }).show();
     }).catch(err => {
         new Noty({
             type: 'error',
-            timeout: 2000,
-            text: "Somwthing went Wrong",
-            progressBar: false
+            timeout: 1000,
+            text: 'Something went wrong',
+            progressBar: false,
         }).show();
     })
 }
+
 addToCart.forEach((btn) => {
     btn.addEventListener('click', (e) => {
+        let pizza = JSON.parse(btn.dataset.pizza)
+            // if data fetched from session , there will be have "item object" => (cart.ejs)
+        if (pizza.item) {
+            pizza = pizza.item;
+        }
+        let url = "/update-cart";
+        updateCart(pizza, url, "Item added to cart");
+    });
+});
+
+removeToCart.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
         let pizza = JSON.parse(btn.dataset.pizza);
-        updateCart(pizza);
-        // console.log(pizza);
+        let url = "/orders-delete";
+        updateCart(pizza.item, url, "Item removed to cart");
     })
 })
 
@@ -77,16 +125,17 @@ updateStatus(order);
 
 // Socket
 let socket = io()
-initAdmin(socket)
-    //JOIN
+
+//JOIN
 if (order) {
     socket.emit('join', `order_${order._id}`)
 
 }
 let adminAreaPath = window.location.pathname;
-console.log(adminAreaPath)
+// console.log(adminAreaPath)
 
 if (adminAreaPath.includes('admin')) {
+    initAdmin(socket)
     socket.emit('join', 'adminRoom')
 }
 

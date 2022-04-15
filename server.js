@@ -12,8 +12,8 @@ const MongoDbStore = require("connect-mongo")
 const passport = require('passport');
 const Emitter = require('events');
 // database connection
-const url = "mongodb://localhost:27017/pizza";
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+// const url = "mongodb://localhost:27017/pizza";
+mongoose.connect(process.env.MONGO_CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection
     .once("open", () => {
@@ -70,8 +70,10 @@ app.set("view engine", "ejs");
 
 // import the routes
 require("./routes/web")(app);
-
-// create a server
+app.use((req, res) => {
+        res.status(404).send('<h1 class="text-center">Page Not Found :( </h1>');
+    })
+    // create a server
 const server = app.listen(PORT, () => {
     console.log(`Listening on Port ${PORT}`);
 });

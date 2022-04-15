@@ -1,7 +1,7 @@
 <section class="cart py-16">
 
     <% if(session.cart)  {%>
-        <div class="order container mx-auto w-1/2">
+        <div class="order container mx-auto xl:w-1/2">
             <div class="flex items-center border-b border-gray-300 pb-4">
                 <img src="/img/cart-black.png" alt="">
                 <h1 class="font-bold ml-4 text-2xl">Order summary</h1>
@@ -18,6 +18,12 @@
                         </div>
                         <span class="flex-1"><%= pizza.qty %> Pcs</span>
                         <span class="font-bold text-lg">₹ <%= pizza.item.price * pizza.qty %></span>
+                        <button data-pizza="<%=JSON.stringify(pizza)%>" class="add-to-cart py-0.5 px-4 mx-2 rounded-full flex items-center font-bold">
+                            <span>+</span>
+                        </button>
+                        <button data-pizza="<%=JSON.stringify(pizza)%>" class="remove-to-cart py-0.5 px-4 mx- rounded-full flex items-center font-bold">
+                            <span>-</span>
+                        </button>
                     </div>
                     <% } %>
             </div>
@@ -27,10 +33,11 @@
                     <span class="text-lg font-bold">Total amount:</span>
                     <span class="amount text-2xl font-bold ml-2">₹<%= session.cart.totalPrice %></span>
                 </div>
+
                 <% if(user) { %>
                     <div>
                         <form action="/orders" method="POST" class="mt-12">
-                            <input name="phone" class="border border-gray-400 p-2 w-1/2 mb-4" type="text" placeholder="Phone Number">
+                            <input id="phoneInput" name="phone" class="border border-gray-400 p-2 w-1/2 mb-4" type="text" placeholder="Phone Number" maxlength="10">
                             <input name="address" class="border border-gray-400 p-2 w-1/2" type="text" placeholder="Address">
                             <div>
                                 <button class="btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="submit">Order Now</button>

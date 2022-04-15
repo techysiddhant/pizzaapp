@@ -6,6 +6,7 @@ function orderController() {
         store(req, res) {
             // console.log(req.body);
             // Validate Request
+
             const { phone, address } = req.body;
             if (!phone || !address) {
                 req.flash('error', 'All Fields are required!');
@@ -13,12 +14,12 @@ function orderController() {
             }
 
             const order = new Order({
-                customerId: req.user._id,
-                items: req.session.cart.items,
-                phone: phone,
-                address: address
-            })
-
+                    customerId: req.user._id,
+                    items: req.session.cart.items,
+                    phone: phone,
+                    address: address
+                })
+                // if(dataset.deleteBtn === '')
             order.save().then(result => {
                 Order.populate(result, { path: 'customerId' }, (err, placedOrder) => {
                     req.flash('success', 'Order Placed Successfully');
@@ -51,6 +52,8 @@ function orderController() {
             }
             return res.redirect('/');
         }
+
+
 
     }
 
