@@ -19,10 +19,11 @@ function cartController() {
                     delete req.session.cart;
                 }
             }
-
+            reload();
             let totalQty = cart ? cart.totalQty : 0;
 
             return res.json({ totalQty: totalQty, cartItems: cart.items });
+
         },
         update(req, res) {
             // example demo cart structure
@@ -73,5 +74,7 @@ function cartController() {
 
     }
 }
+
+
 
 module.exports = cartController;

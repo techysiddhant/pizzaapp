@@ -201,6 +201,65 @@ section.status {
     margin-top: 8px;
 }
 
+.hamburger {
+    display: none;
+}
+
+// for hamburger menu
+// .mobile .nav-wrapper {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+// }
+.mobile .hamburger {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    cursor: pointer;
+    span {
+        background: $primary;
+        width: 28px;
+        height: 2px;
+        margin-bottom: 8px;
+        transform-origin: left;
+        transition: $smooth;
+    }
+}
+
+.mobile ul.nav-list {
+    background: $pure;
+    position: fixed;
+    left: 0px;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+    opacity: 0;
+    pointer-events: none;
+    transition: $smooth;
+}
+
+.hamburger,
+.brand {
+    z-index: 9999;
+}
+
+.mobile ul.nav-list.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile ul.nav-list li {
+    margin-left: 0;
+    margin-top: 20px;
+    text-align: center;
+    a {
+        font-size: 26px;
+    }
+}
+
 @media (min-width: 1280px) {
     .container {
         max-width: 1024px;
